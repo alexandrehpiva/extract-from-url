@@ -1,0 +1,41 @@
+{
+  "name": "extract-from-url",
+  "version": "0.0.0",
+  "description": "Extracts parts of the url.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepare": "tsc",
+    "test": "jest --config jestconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandrehpiva/extract-from-url.git"
+  },
+  "author": "Alexandre Piva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexandrehpiva/extract-from-url/issues"
+  },
+  "homepage": "https://github.com/alexandrehpiva/extract-from-url#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.15",
+    "jest": "^26.6.1",
+    "ts-jest": "^26.4.2",
+    "typescript": "^4.0.3"
+  },
+  "keywords": [
+    "url",
+    "extract",
+    "group",
+    "regex",
+    "protocol",
+    "address",
+    "ip",
+    "hostname",
+    "subdomain",
+    "domain",
+    "port",
+    "path"
+  ]
+}
