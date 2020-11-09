@@ -17,7 +17,7 @@ const urlRegex = /^(?:(?<protocol>https?):\/\/)?(?=(?<address>(?<ip>\d+(?:\.\d+)
  */
 const extractFromUrl = (url: string): Url | undefined => {
   const matches = urlRegex.exec(url);
-  return matches ? { ...matches.groups } as Url : undefined;
+  return matches ? matches.groups as Url : undefined;
 };
 
 export default extractFromUrl;
