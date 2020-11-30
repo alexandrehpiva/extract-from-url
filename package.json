@@ -1,6 +1,6 @@
 {
   "name": "extract-from-url",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Extracts parts of the url.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
