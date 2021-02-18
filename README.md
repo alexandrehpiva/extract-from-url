@@ -11,9 +11,10 @@ import extractFromUrl, { Url } from 'extract-from-url';
 
 const url = 'https://www.subdomain.domain.com:80/path/123';
 const urlParts: Url = extractFromUrl(url);
+const hostname: string = extractFromUrl(url, 'hostname');
 
 console.log(urlParts);
-/* urlParts:
+/*
 {
   protocol: 'https',
   address: 'www.subdomain.domain.com',
@@ -25,6 +26,8 @@ console.log(urlParts);
   path: '/path/123',
 }
 */
+
+console.log(hostname); // 'www.subdomain.domain.com'
 ```
 
 Ip address url
@@ -34,9 +37,10 @@ import extractFromUrl, { Url } from 'extract-from-url';
 
 const url = 'http://127.0.0.1:3000';
 const urlParts: Url = extractFromUrl(url);
+const ip: string = extractFromUrl(url, 'ip');
 
 console.log(urlParts);
-/* urlParts:
+/*
 {
   protocol: 'http',
   address: '127.0.0.1',
@@ -48,4 +52,10 @@ console.log(urlParts);
   path: undefined,
 }
 */
+
+console.log(ip); // '127.0.0.1'
 ```
+
+# Breaking changes
+
+v1.3 - The return type of the function change to Url or string depending on passing or not the second parameter
