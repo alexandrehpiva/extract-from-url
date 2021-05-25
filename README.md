@@ -2,6 +2,8 @@
 
 Extracts parts of the url
 
+![npm](https://img.shields.io/npm/dy/extract-from-url)
+
 ## Example
 
 Url with hostname
@@ -10,9 +12,8 @@ Url with hostname
 import extractFromUrl, { Url } from 'extract-from-url';
 
 const url = 'https://www.subdomain.domain.com:80/path/123';
-const urlParts: Url = extractFromUrl(url);
-const hostname: string = extractFromUrl(url, 'hostname');
 
+const urlParts: Url = extractFromUrl(url);
 console.log(urlParts);
 /*
 {
@@ -27,7 +28,10 @@ console.log(urlParts);
 }
 */
 
-console.log(hostname); // 'www.subdomain.domain.com'
+const { hostname } = extractFromUrl(url);
+// Or: const hostname: string = extractFromUrl(url, 'hostname')
+console.log(hostname);
+// 'www.subdomain.domain.com'
 ```
 
 Ip address url
@@ -36,9 +40,8 @@ Ip address url
 import extractFromUrl, { Url } from 'extract-from-url';
 
 const url = 'http://127.0.0.1:3000';
-const urlParts: Url = extractFromUrl(url);
-const ip: string = extractFromUrl(url, 'ip');
 
+const urlParts: Url = extractFromUrl(url);
 console.log(urlParts);
 /*
 {
@@ -53,7 +56,10 @@ console.log(urlParts);
 }
 */
 
+const { ip, port } = extractFromUrl(url);
+// Or: const ip: string = extractFromUrl(url, 'ip');
 console.log(ip); // '127.0.0.1'
+console.log(port); // '3000'
 ```
 
 # Breaking changes
