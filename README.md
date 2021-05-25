@@ -65,3 +65,4 @@ console.log(port); // '3000'
 # Breaking changes
 
 v1.3 - The return type of the function change to Url or string depending on passing or not the second parameter
+v2.0 - Targeting to ES6
