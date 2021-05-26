@@ -39,6 +39,7 @@
     "subdomain",
     "domain",
     "port",
-    "path"
+    "path",
+    "parse"
   ]
 }
