@@ -3,6 +3,8 @@
 Extracts parts of the url
 
 ![npm](https://img.shields.io/npm/dy/extract-from-url)
+![npm version](https://badge.fury.io/js/extract-from-url)(https://www.npmjs.com/package/extract-from-url)
+![Build Status](https://travis-ci.org/alexandrehpiva/extract-from-url.svg?branch=main)(https://travis-ci.org/alexandrehpiva/extract-from-url)
 
 ## Example
 
@@ -65,4 +67,10 @@ console.log(port); // '3000'
 # Breaking changes
 
 v1.3 - The return type of the function change to Url or string depending on passing or not the second parameter
+
 v2.0 - Targeting to ES6
+
+# TODO
+
+- [ ] Extract parameters from URL ("http://www.example.com:80/path/to/api?key1=value1&key2=value2")
+- [ ] Extract #hashtags redirect from URL ("http://www.example.com:80/page#SomewhereInTheDocument", "https://github.com:32199/users/iggy#foo?bar=baz#qux")
