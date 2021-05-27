@@ -77,4 +77,9 @@ describe('Extract parts of a url', () => {
       expect(extractFromUrl(url, part)).toEqual(parts[part])
     }
   )
+
+  it('Should return undefined if it is not a url', () => {
+    const notAUrl = '/www/path/123'
+    expect(extractFromUrl(notAUrl)).toBeUndefined()
+  })
 })
