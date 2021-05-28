@@ -1,3 +1,7 @@
 language: node_js
 node_js:
-  - '15'
+  - 'node'
+before_script:
+  yarn prepare
+script:
+  yarn test
