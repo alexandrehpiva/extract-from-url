@@ -27,6 +27,7 @@ console.log(urlParts);
   subdomain: 'subdomain',
   domain: 'domain.com',
   path: '/path/123',
+  parameters: undefined,
 }
 */
 
@@ -55,6 +56,7 @@ console.log(urlParts);
   subdomain: undefined,
   domain: undefined,
   path: undefined,
+  parameters: undefined,
 }
 */
 
@@ -64,13 +66,55 @@ console.log(ip); // '127.0.0.1'
 console.log(port); // '3000'
 ```
 
+Url parameters (new in v2.1)
+
+```ts
+import extractFromUrl, { Url } from 'extract-from-url';
+
+const url = 'http://www.example.com:80/path/to/api?key1=value1&key2=value2';
+
+const urlParts: Url = extractFromUrl(url);
+console.log(urlParts);
+/*
+{
+  protocol: 'http',
+  address: 'www.example.com',
+  port: '80',
+  ip: undefined,
+  hostname: 'www.example.com',
+  subdomain: undefined,
+  domain: 'example.com',
+  path: '/path/to/api',
+  parameters: [
+    { key: 'key1', value: 'value1' },
+    { key: 'key2', value: 'value2' }
+  ]
+}
+*/
+```
+
 # Breaking changes
 
 v1.3 - The return type of the function change to Url or string depending on passing or not the second parameter
 
 v2.0 - Targeting to ES6
 
+v2.1 - After add parameters extraction, the path do not include everything anymore. Ex:
+
+```js
+// URL: http://www.example.com:80/path/to/api?key1=value1&key2=value2
+// path before v2.1:
+{
+  path: '/path/to/api?key1=value1&key2=value2'
+}
+
+// path in v2.1:
+{
+  path: '/path/to/api'
+}
+```
+
 # TODO
 
-- [ ] Extract parameters from URL ("http://www.example.com:80/path/to/api?key1=value1&key2=value2")
+- [X] Extract parameters from URL ("http://www.example.com:80/path/to/api?key1=value1&key2=value2")
 - [ ] Extract #hashtags redirect from URL ("http://www.example.com:80/page#SomewhereInTheDocument", "https://github.com:32199/users/iggy#foo?bar=baz#qux")
