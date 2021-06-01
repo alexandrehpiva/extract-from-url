@@ -11,7 +11,8 @@ describe('Extract parts of a url', () => {
       hostname: 'www.subdomain.domain.com',
       subdomain: 'subdomain',
       domain: 'domain.com',
-      path: '/path/123'
+      path: '/path/123',
+      parameters: undefined
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
@@ -27,7 +28,8 @@ describe('Extract parts of a url', () => {
       hostname: 'www.googleapis.com',
       subdomain: undefined,
       domain: 'googleapis.com',
-      path: '/youtube/v3/search'
+      path: '/youtube/v3/search',
+      parameters: undefined
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
@@ -43,13 +45,35 @@ describe('Extract parts of a url', () => {
       hostname: undefined,
       subdomain: undefined,
       domain: undefined,
-      path: undefined
+      path: undefined,
+      parameters: undefined
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
   })
 
-  const url = 'https://www.subdomain.domain.com:80/path/123'
+  it('Should extract parameters from URL correctly', () => {
+    const url = 'http://www.example.com:80/path/to/api?key1=value1&key2=value2'
+    const parts: Url = {
+      protocol: 'http',
+      address: 'www.example.com',
+      port: '80',
+      ip: undefined,
+      hostname: 'www.example.com',
+      subdomain: undefined,
+      domain: 'example.com',
+      path: '/path/to/api',
+      parameters: [
+        { key: 'key1', value: 'value1' },
+        { key: 'key2', value: 'value2' }
+      ]
+    }
+
+    expect(extractFromUrl(url)).toEqual(parts)
+  })
+
+  const url =
+    'https://www.subdomain.domain.com:80/path/123?key1=value1&key2=value2'
   const parts: Url = {
     protocol: 'https',
     address: 'www.subdomain.domain.com',
@@ -58,7 +82,11 @@ describe('Extract parts of a url', () => {
     hostname: 'www.subdomain.domain.com',
     subdomain: 'subdomain',
     domain: 'domain.com',
-    path: '/path/123'
+    path: '/path/123',
+    parameters: [
+      { key: 'key1', value: 'value1' },
+      { key: 'key2', value: 'value2' }
+    ]
   }
 
   test.each`
@@ -71,6 +99,7 @@ describe('Extract parts of a url', () => {
     ${'domain'}
     ${'port'}
     ${'path'}
+    ${'parameters'}
   `(
     'Should correctly extract specified part $part',
     ({ part }: { part: keyof Url }) => {
