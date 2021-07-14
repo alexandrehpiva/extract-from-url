@@ -1,10 +1,9 @@
+[![npm](https://img.shields.io/npm/v/extract-from-url.svg)](https://www.npmjs.com/package/extract-from-url)
+[![npm](https://img.shields.io/npm/dy/extract-from-url)](https://www.npmjs.com/package/extract-from-url)
+
 # extract-from-url
 
 Extracts parts of the url
-
-[![npm](https://img.shields.io/npm/dy/extract-from-url)](https://www.npmjs.com/package/extract-from-url)
-[![npm version](https://badge.fury.io/js/extract-from-url.svg)](https://badge.fury.io/js/extract-from-url)
-[![Build Status](https://travis-ci.org/alexandrehpiva/extract-from-url.svg?branch=main)](https://travis-ci.org/alexandrehpiva/extract-from-url)
 
 ## Example
 
