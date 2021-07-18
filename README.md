@@ -92,6 +92,10 @@ console.log(urlParts);
 */
 ```
 
+# Other considerations
+
+This function is not performance-oriented.
+
 # Breaking changes
 
 v1.3 - The return type of the function change to Url or string depending on passing or not the second parameter
