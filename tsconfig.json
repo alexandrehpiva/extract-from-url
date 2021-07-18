@@ -9,6 +9,12 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+  "include": [
+    "src",
+    "benchmark.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*"
+  ]
 }
