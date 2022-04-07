@@ -1,4 +1,4 @@
-import extractFromUrl, { Url } from '../index'
+import extractFromUrl, { Url } from './index'
 
 describe('Extract parts of a url', () => {
   it('Should correctly extract all parts of a valid url', () => {
