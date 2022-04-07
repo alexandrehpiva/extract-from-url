@@ -6,7 +6,7 @@
 
 Extracts parts of the url
 
-## Example
+## Examples
 
 Url with hostname
 
@@ -20,10 +20,10 @@ console.log(urlParts)
 /*
 {
   protocol: 'https',
-  address: 'www.subdomain.domain.com',
+  address: 'subdomain.domain.com',
   port: '80',
   ip: undefined,
-  hostname: 'www.subdomain.domain.com',
+  hostname: 'subdomain.domain.com',
   subdomain: 'subdomain',
   domain: 'domain.com',
   path: '/path/123',
@@ -34,7 +34,7 @@ console.log(urlParts)
 const { hostname } = extractFromUrl(url)
 // Or: const hostname: string = extractFromUrl(url, 'hostname')
 console.log(hostname)
-// 'www.subdomain.domain.com'
+// 'subdomain.domain.com'
 ```
 
 Ip address url
@@ -82,7 +82,7 @@ console.log(urlParts)
   port: '80',
   ip: undefined,
   hostname: 'www.example.com',
-  subdomain: undefined,
+  subdomain: 'www',
   domain: 'example.com',
   path: '/path/to/api',
   parameters: [
@@ -93,17 +93,35 @@ console.log(urlParts)
 */
 ```
 
+Use the second parameter to extract a specific part of the url
+
+```ts
+import extractFromUrl from 'extract-from-url'
+
+const url = 'http://www.example.com:80/path/to/api?key1=value1&key2=value2'
+
+const domain: string = extractFromUrl(url, 'hostname')
+console.log(domain)
+// example.com
+```
+
 # Other considerations
 
 This function is not performance-oriented.
 
 # Breaking changes
 
-v1.3 - The return type of the function change to Url or string depending on passing or not the second parameter
+## v1.3
 
-v2.0 - Targeting to ES6
+- The return type of the function change to Url or string depending on passing or not the second parameter
 
-v2.1 - After add parameters extraction, the path do not include everything anymore. Example:
+## v2.0
+
+- Targeting to ES6
+
+## v2.1
+
+- After add parameters extraction, the path do not include everything anymore. Example:
 
 ```js
 // URL: http://www.example.com:80/path/to/api?key1=value1&key2=value2
@@ -118,7 +136,7 @@ v2.1 - After add parameters extraction, the path do not include everything anymo
 }
 ```
 
-v3.0:
+## v3.0
 
 - Targeting to es2018
 
