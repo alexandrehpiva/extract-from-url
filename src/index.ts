@@ -39,7 +39,7 @@ export function convertStrParams(
  * @param part Key name of property to return (passing this property the return type will change)
  * @returns {Url}
  * @author Alexandre Piva
- * @version 3.0.1
+ * @version 3.0.2
  * @example
  * const url = 'https://www.googleapis.com/youtube/v3/search'
  * const urlParts = extractUrlParts(url)
