@@ -1,6 +1,6 @@
 [![npm](https://img.shields.io/npm/v/extract-from-url.svg)](https://www.npmjs.com/package/extract-from-url)
 [![npm](https://img.shields.io/npm/dy/extract-from-url)](https://www.npmjs.com/package/extract-from-url)
-[![travis](https://travis-ci.com/alexandrehpiva/extract-from-url.svg)](https://travis-ci.com/github/alexandrehpiva/extract-from-url)
+[![travis](https://app.travis-ci.com/alexandrehpiva/extract-from-url.svg?branch=main)](https://travis-ci.com/github/alexandrehpiva/extract-from-url)
 
 # extract-from-url
 
