@@ -1,14 +1,14 @@
 import extractFromUrl, { Url } from './index'
 
-describe('Extract parts of a url', () => {
-  it('Should correctly extract all parts of a valid url', () => {
-    const url = 'https://www.subdomain.domain.com:80/path/123'
+describe('common tests', () => {
+  it('should correctly extract all parts of a valid url', () => {
+    const url = 'https://subdomain.domain.com:80/path/123'
     const parts: Url = {
       protocol: 'https',
-      address: 'www.subdomain.domain.com',
+      address: 'subdomain.domain.com',
       port: '80',
       ip: undefined,
-      hostname: 'www.subdomain.domain.com',
+      hostname: 'subdomain.domain.com',
       subdomain: 'subdomain',
       domain: 'domain.com',
       path: '/path/123',
@@ -18,7 +18,7 @@ describe('Extract parts of a url', () => {
     expect(extractFromUrl(url)).toEqual(parts)
   })
 
-  it('Should correctly extract all parts of a url without subdomain', () => {
+  it('should correctly extract all parts of a url without subdomain', () => {
     const url = 'https://www.googleapis.com/youtube/v3/search'
     const parts: Url = {
       protocol: 'https',
@@ -26,7 +26,7 @@ describe('Extract parts of a url', () => {
       port: undefined,
       ip: undefined,
       hostname: 'www.googleapis.com',
-      subdomain: undefined,
+      subdomain: 'www',
       domain: 'googleapis.com',
       path: '/youtube/v3/search',
       parameters: undefined
@@ -35,7 +35,7 @@ describe('Extract parts of a url', () => {
     expect(extractFromUrl(url)).toEqual(parts)
   })
 
-  it('Should correctly extract all parts of a url with only ip + port', () => {
+  it('should correctly extract all parts of a url with only ip + port', () => {
     const url = 'http://127.0.0.1:3000'
     const parts: Url = {
       protocol: 'http',
@@ -52,7 +52,7 @@ describe('Extract parts of a url', () => {
     expect(extractFromUrl(url)).toEqual(parts)
   })
 
-  it('Should extract parameters from URL correctly', () => {
+  it('should extract parameters from URL correctly', () => {
     const url = 'http://www.example.com:80/path/to/api?key1=value1&key2=value2'
     const parts: Url = {
       protocol: 'http',
@@ -60,7 +60,7 @@ describe('Extract parts of a url', () => {
       port: '80',
       ip: undefined,
       hostname: 'www.example.com',
-      subdomain: undefined,
+      subdomain: 'www',
       domain: 'example.com',
       path: '/path/to/api',
       parameters: [
@@ -72,16 +72,71 @@ describe('Extract parts of a url', () => {
     expect(extractFromUrl(url)).toEqual(parts)
   })
 
+  it('should extract domain from URL correctly', () => {
+    const urls = [
+      'http://www.example.com',
+      'http://www.example.co.uk',
+      'http://www.example.com.br',
+      'www.example.com',
+      'www.example.co.uk',
+      'www.example.com.br',
+      'example.com',
+      'example.co.uk',
+      'example.com.br',
+      'example.com:80',
+      'subdomain.example.com',
+      'subdomain.example.co.uk',
+      'subdomain.example.com.br',
+      'subdomain.example.com:80',
+      'subdomain.subdomain.example.com',
+      'subdomain.subdomain.example.co.uk',
+      'subdomain.subdomain.example.com.br',
+      'subdomain.subdomain.example.com:80'
+    ]
+
+    const domains = [
+      'example.com',
+      'example.co.uk',
+      'example.com.br',
+      'example.com',
+      'example.co.uk',
+      'example.com.br',
+      'example.com',
+      'example.co.uk',
+      'example.com.br',
+      'example.com',
+      'example.com',
+      'example.co.uk',
+      'example.com.br',
+      'example.com',
+      'example.com',
+      'example.co.uk',
+      'example.com.br',
+      'example.com'
+    ]
+
+    urls.forEach((url, index) => {
+      expect(extractFromUrl(url)?.domain).toEqual(domains[index])
+    })
+  })
+
+  it('should return undefined if it is not a url', () => {
+    const notAUrl = '/www/path/123'
+    expect(extractFromUrl(notAUrl)).toBeUndefined()
+  })
+})
+
+describe('tests based on what is specified in the second parameter', () => {
   const url =
-    'https://www.subdomain.domain.com:80/path/123?key1=value1&key2=value2'
+    'https://subdomain.domain.com.br:80/path/123?key1=value1&key2=value2'
   const parts: Url = {
     protocol: 'https',
-    address: 'www.subdomain.domain.com',
+    address: 'subdomain.domain.com.br',
     port: '80',
     ip: undefined,
-    hostname: 'www.subdomain.domain.com',
+    hostname: 'subdomain.domain.com.br',
     subdomain: 'subdomain',
-    domain: 'domain.com',
+    domain: 'domain.com.br',
     path: '/path/123',
     parameters: [
       { key: 'key1', value: 'value1' },
@@ -101,14 +156,9 @@ describe('Extract parts of a url', () => {
     ${'path'}
     ${'parameters'}
   `(
-    'Should correctly extract specified part $part',
+    'should correctly extract specified part $part',
     ({ part }: { part: keyof Url }) => {
       expect(extractFromUrl(url, part)).toEqual(parts[part])
     }
   )
-
-  it('Should return undefined if it is not a url', () => {
-    const notAUrl = '/www/path/123'
-    expect(extractFromUrl(notAUrl)).toBeUndefined()
-  })
 })

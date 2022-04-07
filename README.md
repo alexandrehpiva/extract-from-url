@@ -11,12 +11,12 @@ Extracts parts of the url
 Url with hostname
 
 ```ts
-import extractFromUrl, { Url } from 'extract-from-url';
+import extractFromUrl, { Url } from 'extract-from-url'
 
-const url = 'https://www.subdomain.domain.com:80/path/123';
+const url = 'https://www.subdomain.domain.com:80/path/123'
 
-const urlParts: Url = extractFromUrl(url);
-console.log(urlParts);
+const urlParts: Url = extractFromUrl(url)
+console.log(urlParts)
 /*
 {
   protocol: 'https',
@@ -31,21 +31,21 @@ console.log(urlParts);
 }
 */
 
-const { hostname } = extractFromUrl(url);
+const { hostname } = extractFromUrl(url)
 // Or: const hostname: string = extractFromUrl(url, 'hostname')
-console.log(hostname);
+console.log(hostname)
 // 'www.subdomain.domain.com'
 ```
 
 Ip address url
 
 ```ts
-import extractFromUrl, { Url } from 'extract-from-url';
+import extractFromUrl, { Url } from 'extract-from-url'
 
-const url = 'http://127.0.0.1:3000';
+const url = 'http://127.0.0.1:3000'
 
-const urlParts: Url = extractFromUrl(url);
-console.log(urlParts);
+const urlParts: Url = extractFromUrl(url)
+console.log(urlParts)
 /*
 {
   protocol: 'http',
@@ -60,21 +60,21 @@ console.log(urlParts);
 }
 */
 
-const { ip, port } = extractFromUrl(url);
+const { ip, port } = extractFromUrl(url)
 // Or: const ip: string = extractFromUrl(url, 'ip');
-console.log(ip); // '127.0.0.1'
-console.log(port); // '3000'
+console.log(ip) // '127.0.0.1'
+console.log(port) // '3000'
 ```
 
 Url parameters (new in v2.1)
 
 ```ts
-import extractFromUrl, { Url } from 'extract-from-url';
+import extractFromUrl, { Url } from 'extract-from-url'
 
-const url = 'http://www.example.com:80/path/to/api?key1=value1&key2=value2';
+const url = 'http://www.example.com:80/path/to/api?key1=value1&key2=value2'
 
-const urlParts: Url = extractFromUrl(url);
-console.log(urlParts);
+const urlParts: Url = extractFromUrl(url)
+console.log(urlParts)
 /*
 {
   protocol: 'http',
@@ -103,7 +103,7 @@ v1.3 - The return type of the function change to Url or string depending on pass
 
 v2.0 - Targeting to ES6
 
-v2.1 - After add parameters extraction, the path do not include everything anymore. Ex:
+v2.1 - After add parameters extraction, the path do not include everything anymore. Example:
 
 ```js
 // URL: http://www.example.com:80/path/to/api?key1=value1&key2=value2
@@ -118,7 +118,41 @@ v2.1 - After add parameters extraction, the path do not include everything anymo
 }
 ```
 
+v3.0:
+
+- Targeting to es2018
+
+- Change what is considered a subdomain. Example:
+
+```js
+// URL: http://www.example.com:80/path/to/api?key1=value1&key2=value2
+// subdomain before v3.0:
+{
+  subdomain: undefined
+}
+
+// subdomain in v3.0:
+{
+  subdomain: 'www'
+}
+```
+
+- Fix the issue with domain when in the TLD has a second level. Example:
+
+```js
+// URL: http://www.example.co.uk:80/path/to/api?key1=value1&key2=value2
+// domain before v3.0:
+{
+  domain: 'co.uk'
+}
+
+// domain in v3.0:
+{
+  domain: 'example.co.uk'
+}
+```
+
 # TODO
 
-- [X] Extract parameters from URL ("http://www.example.com:80/path/to/api?key1=value1&key2=value2")
+- [x] Extract parameters from URL ("http://www.example.com:80/path/to/api?key1=value1&key2=value2")
 - [ ] Extract #hashtags redirect from URL ("http://www.example.com:80/page#SomewhereInTheDocument", "https://github.com:32199/users/iggy#foo?bar=baz#qux")
