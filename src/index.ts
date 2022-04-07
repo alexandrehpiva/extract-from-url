@@ -38,7 +38,8 @@ export function convertStrParams(
  * @param {string} url Url string
  * @param part Key name of property to return (passing this property the return type will change)
  * @returns {Url}
- * @version 3.0.0
+ * @author Alexandre Piva
+ * @version 3.0.1
  * @example
  * const url = 'https://www.googleapis.com/youtube/v3/search'
  * const urlParts = extractUrlParts(url)
@@ -54,6 +55,9 @@ export function convertStrParams(
  * //   path: '/youtube/v3/search',
  * //   parameters: undefined
  * // }
+ * const domain = extractUrlParts(url, 'domain')
+ * console.log(domain)
+ * // 'googleapis.com'
  */
 export function extractFromUrl(
   url: string,
