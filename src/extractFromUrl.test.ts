@@ -12,7 +12,8 @@ describe('common tests', () => {
       subdomain: 'subdomain',
       domain: 'domain.com',
       path: '/path/123',
-      parameters: undefined
+      parameters: undefined,
+      hashTags: []
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
@@ -29,7 +30,8 @@ describe('common tests', () => {
       subdomain: 'www',
       domain: 'googleapis.com',
       path: '/youtube/v3/search',
-      parameters: undefined
+      parameters: undefined,
+      hashTags: []
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
@@ -46,7 +48,8 @@ describe('common tests', () => {
       subdomain: undefined,
       domain: undefined,
       path: undefined,
-      parameters: undefined
+      parameters: undefined,
+      hashTags: []
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
@@ -66,7 +69,30 @@ describe('common tests', () => {
       parameters: [
         { key: 'key1', value: 'value1' },
         { key: 'key2', value: 'value2' }
-      ]
+      ],
+      hashTags: []
+    }
+
+    expect(extractFromUrl(url)).toEqual(parts)
+  })
+
+  it('should extract hashTags from URL correctly', () => {
+    const url =
+      'http://www.example.com:80/path/to/api?key1=value1&key2=value2#hashtag1'
+    const parts: Url = {
+      protocol: 'http',
+      address: 'www.example.com',
+      port: '80',
+      ip: undefined,
+      hostname: 'www.example.com',
+      subdomain: 'www',
+      domain: 'example.com',
+      path: '/path/to/api',
+      parameters: [
+        { key: 'key1', value: 'value1' },
+        { key: 'key2', value: 'value2' }
+      ],
+      hashTags: [{ key: 'hashtag1', value: 'hashtag1' }]
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
@@ -141,7 +167,8 @@ describe('tests based on what is specified in the second parameter', () => {
     parameters: [
       { key: 'key1', value: 'value1' },
       { key: 'key2', value: 'value2' }
-    ]
+    ],
+    hashTags: []
   }
 
   test.each`
