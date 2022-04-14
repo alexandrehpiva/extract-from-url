@@ -13,7 +13,7 @@ describe('common tests', () => {
       domain: 'domain.com',
       path: '/path/123',
       parameters: undefined,
-      hashTags: []
+      fragment: undefined
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
@@ -31,7 +31,7 @@ describe('common tests', () => {
       domain: 'googleapis.com',
       path: '/youtube/v3/search',
       parameters: undefined,
-      hashTags: []
+      fragment: undefined
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
@@ -49,7 +49,7 @@ describe('common tests', () => {
       domain: undefined,
       path: undefined,
       parameters: undefined,
-      hashTags: []
+      fragment: undefined
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
@@ -70,32 +70,28 @@ describe('common tests', () => {
         { key: 'key1', value: 'value1' },
         { key: 'key2', value: 'value2' }
       ],
-      hashTags: []
+      fragment: undefined
     }
 
     expect(extractFromUrl(url)).toEqual(parts)
   })
 
-  it('should extract hashTags from URL correctly', () => {
+  it('should extract #fragment from URL correctly', () => {
     const url =
-      'http://www.example.com:80/path/to/api?key1=value1&key2=value2#hashtag1'
-    const parts: Url = {
-      protocol: 'http',
-      address: 'www.example.com',
-      port: '80',
-      ip: undefined,
-      hostname: 'www.example.com',
-      subdomain: 'www',
-      domain: 'example.com',
-      path: '/path/to/api',
-      parameters: [
-        { key: 'key1', value: 'value1' },
-        { key: 'key2', value: 'value2' }
-      ],
-      hashTags: [{ key: 'hashtag1', value: 'hashtag1' }]
-    }
+      'http://www.example.com:80/path/to/api?key1=value1&key2=value2#fragment'
+    const fragment = 'fragment'
 
-    expect(extractFromUrl(url)).toEqual(parts)
+    expect(extractFromUrl(url, 'fragment')).toEqual(fragment)
+  })
+
+  it('should invalidate the URL when it has a second unescaped hash in the fragment', () => {
+    const invalidUrl =
+      'http://www.example.com:80/path/to/api?key1=value1&key2=value2#fragment#second'
+    const validUrl =
+      'http://www.example.com:80/path/to/api?key1=value1&key2=value2#fragment%23second'
+
+    expect(extractFromUrl(invalidUrl, 'fragment')).toEqual(undefined)
+    expect(extractFromUrl(validUrl, 'fragment')).toEqual('fragment#second')
   })
 
   it('should extract domain from URL correctly', () => {
@@ -168,7 +164,7 @@ describe('tests based on what is specified in the second parameter', () => {
       { key: 'key1', value: 'value1' },
       { key: 'key2', value: 'value2' }
     ],
-    hashTags: []
+    fragment: undefined
   }
 
   test.each`

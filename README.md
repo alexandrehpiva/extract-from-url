@@ -173,4 +173,4 @@ This function is not performance-oriented.
 # TODO
 
 - [x] Extract parameters from URL ("http://www.example.com:80/path/to/api?key1=value1&key2=value2")
-- [ ] Extract #hashtags redirect from URL ("http://www.example.com:80/page#SomewhereInTheDocument", "https://github.com:32199/users/iggy#foo?bar=baz#qux")
+- [ ] Extract #fragment part from URL ("http://www.example.com:80/page#SomewhereInTheDocument", "https://github.com:32199/users/iggy?bar=baz#qux")
