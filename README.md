@@ -192,3 +192,18 @@ This function is not performance-oriented.
 - The performance of the function is decreased.
 
 - The path parts are now decoded by default
+
+# TODO
+
+- [ ] Review the function to match section 3 of RFC 3986 Rules ("https://www.rfc-editor.org/rfc/rfc3986#section-3")
+
+- [ ] Add options parameter to allow to change the behavior of the function. Example:
+
+  ```ts
+  const urlParts: Url = extractFromUrl(url, {
+    part: 'path'
+    decodePath: false
+  })
+  ```
+
+- [ ] Do not url decode the path by default
