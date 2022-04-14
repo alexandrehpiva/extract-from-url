@@ -17,7 +17,7 @@ export type Url = {
 }
 
 const urlRegex =
-  /^(?:(?<protocol>https?):\/\/)?(?=(?<address>(?<ip>\d+(?:\.\d+){3})|(?<hostname>(?!.{256})[a-z0-9.-]+))(?::(?<port>\d+))?(?<path>\/[^\s|?|#]*)?(?:\?(?<parameters>(?:&?\S+?=[^&|#]+)+))?(?<fragment>(?:#(?:(?:(?<=\\)#)|(?:[^#]))+))?$)(?:(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])(?:\.(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])){3})|(?:(?=(?<subdomain>(?:[a-z0-9][a-z0-9-.]{0,61}[a-z0-9])?(?=(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])){1,}\.(?:(?:com)|(?:org)|(?:gov)|(?:net)|(?:int)|(?:edu)|(?:mil)|(?:co))))?\.?(?<domain>(?:\.?[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+))(?:(?:\.?[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+(?:[a-z]{1,63}|xn--[a-z0-9]{1,59}))))(?::(?:[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?(?:\/.*)?$/
+  /^(?:(?<protocol>https?):\/\/)?(?=(?<address>(?<ip>\d+(?:\.\d+){3})|(?<hostname>(?!.{256})[a-z0-9.-]+))(?::(?<port>\d+))?(?<path>\/[^\s|?|#]*)?(?:\?(?<parameters>(?:&?\S+?=[^&|#\s]+)+))?(?:#(?<fragment>[^#\s]+))?$)(?:(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])(?:\.(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])){3})|(?:(?=(?<subdomain>(?:[a-z0-9][a-z0-9-.]{0,61}[a-z0-9])?(?=(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])){1,}\.(?:(?:com)|(?:org)|(?:gov)|(?:net)|(?:int)|(?:edu)|(?:mil)|(?:co))))?\.?(?<domain>(?:\.?[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+))(?:(?:\.?[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+(?:[a-z]{1,63}|xn--[a-z0-9]{1,59}))))(?::(?:[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?(?:\/.*)?$/
 
 /**
  * Convert string parameters to UrlParameter[]
@@ -76,15 +76,22 @@ export function extractFromUrl(
     ? { ...rest, parameters: parameters && convertStrParams(parameters) }
     : undefined
 
-  // decodeURI is needed to decode the parameters
-  if (allParts && allParts.parameters) {
-    allParts.parameters = allParts.parameters.map(param => ({
-      ...param,
-      value: decodeURI(param.value)
-    }))
+  if (allParts) {
+    allParts.parameters = allParts.parameters
+      ? allParts.parameters.map(param => ({
+          ...param,
+          value: decodeURIComponent(param.value)
+        }))
+      : undefined
+    allParts.path = allParts.path
+      ? decodeURIComponent(allParts.path)
+      : undefined
+    allParts.fragment = allParts.fragment
+      ? decodeURIComponent(allParts.fragment)
+      : undefined
   }
 
-  return part && allParts ? allParts[part] : allParts
+  return part ? allParts?.[part] : allParts
 }
 
 export default extractFromUrl

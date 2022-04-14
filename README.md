@@ -105,6 +105,19 @@ console.log(domain)
 // example.com
 ```
 
+Url fragment and url path decoding (new in v3.1)
+
+```ts
+import extractFromUrl, { Url } from 'extract-from-url'
+
+const url =
+  'http://www.example.com:80/path/to/api?key1=value1&key2=value2#fragment%23something'
+
+const fragment: string = extractFromUrl(url, 'fragment')
+console.log(fragment)
+// 'fragment#something'
+```
+
 # Other considerations
 
 This function is not performance-oriented.
@@ -173,4 +186,5 @@ This function is not performance-oriented.
 # TODO
 
 - [x] Extract parameters from URL ("http://www.example.com:80/path/to/api?key1=value1&key2=value2")
-- [ ] Extract #fragment part from URL ("http://www.example.com:80/page#SomewhereInTheDocument", "https://github.com:32199/users/iggy?bar=baz#qux")
+- [x] Extract #fragment part from URL ("http://www.example.com:80/page#SomewhereInTheDocument", "https://github.com:32199/users/iggy?bar=baz#qux")
+- [x] decode percent-encoding in path, parameters and fragment

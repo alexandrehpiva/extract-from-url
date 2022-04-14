@@ -94,6 +94,31 @@ describe('common tests', () => {
     expect(extractFromUrl(validUrl, 'fragment')).toEqual('fragment#second')
   })
 
+  it('should pct-decode (using decodeURIComponent) the path, parameters and fragment parts of the url', () => {
+    const pctEncodedUrl =
+      'example.com/path/to/api?key1=%20-%21-%23-%24-%25-%26-%27-%28-%29-%2A-%2B-%2C-%2F-%3A-%3B-%3D-%3F-%40-%5B-%5D&key2=%0A-%0D-%0D%0A-%20-%22-%25-%2D-%2E-%3C-%3E-%5C-%5E-%5F-%60-%7B-%7C-%7D-%7E-%C2%A3-%E5%86%86#fragment%5B-%5D'
+    const parts: Url = {
+      protocol: undefined,
+      address: 'example.com',
+      port: undefined,
+      ip: undefined,
+      hostname: 'example.com',
+      subdomain: undefined,
+      domain: 'example.com',
+      path: '/path/to/api',
+      parameters: [
+        { key: 'key1', value: ` -!-#-$-%-&-'-(-)-*-+-,-/-:-;-=-?-@-[-]` },
+        {
+          key: 'key2',
+          value: '\n-\r-\r\n- -"-%---.-<->-\\-^-_-`-{-|-}-~-£-円'
+        }
+      ],
+      fragment: 'fragment[-]'
+    }
+
+    expect(extractFromUrl(pctEncodedUrl)).toEqual(parts)
+  })
+
   it('should extract domain from URL correctly', () => {
     const urls = [
       'http://www.example.com',
