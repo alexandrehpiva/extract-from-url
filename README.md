@@ -118,6 +118,10 @@ console.log(fragment)
 // 'fragment#something'
 ```
 
+**Note:**
+- The url fragment is now decoded by default.
+- Rules for fragment extraction: https://www.rfc-editor.org/rfc/rfc3986#section-3.5
+
 # Other considerations
 
 This function is not performance-oriented.
@@ -183,8 +187,8 @@ This function is not performance-oriented.
 }
 ```
 
-# TODO
+## v3.1
 
-- [x] Extract parameters from URL ("http://www.example.com:80/path/to/api?key1=value1&key2=value2")
-- [x] Extract #fragment part from URL ("http://www.example.com:80/page#SomewhereInTheDocument", "https://github.com:32199/users/iggy?bar=baz#qux")
-- [x] decode percent-encoding in path, parameters and fragment
+- The performance of the function is decreased.
+
+- The path parts are now decoded by default
